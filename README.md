@@ -1,77 +1,37 @@
-# React + TypeScript + Vite
+# laBiblio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sistema web de gerenciamento de biblioteca: cadastro, listagem e organização de livros, com dashboard e autenticação de usuários.
 
-Currently, two official plugins are available:
+## Tecnologias
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Frontend:** React + TypeScript + Vite
+- **UI:** Tailwind CSS + shadcn/ui
+- **Backend:** Convex (banco de dados, funções serverless e sincronização em tempo real)
 
-## React Compiler
+## Como rodar o projeto
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+Pré-requisitos: [Node.js](https://nodejs.org) (LTS) e uma conta gratuita no [Convex](https://www.convex.dev).
 
-Note: This will impact Vite dev & build performances.
+```bash
+# 1. Instalar as dependências
+npm install
 
-## Expanding the ESLint configuration
+# 2. Rodar o backend Convex (deixe rodando)
+npx convex dev
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+# 3. Em outro terminal, rodar o frontend
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+O app abre em `http://localhost:5173`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+> Novo no projeto ou em Git/Convex? Veja o [Guia para iniciantes](./GUIA-INICIANTE.md).
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Scripts
 
-```
+| Comando | O que faz |
+|---|---|
+| `npm run dev` | Roda o frontend em modo desenvolvimento |
+| `npm run build` | Checa os tipos e gera a build de produção |
+| `npm run lint` | Roda o ESLint |
+| `npm run preview` | Serve localmente a build de produção |
