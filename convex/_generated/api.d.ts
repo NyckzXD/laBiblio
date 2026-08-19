@@ -11,8 +11,10 @@
 import type * as auth from "../auth.js";
 import type * as books from "../books.js";
 import type * as http from "../http.js";
+import type * as model_alunos_query from "../model/alunos/query.js";
 import type * as model_books_mutation from "../model/books/mutation.js";
 import type * as model_books_query from "../model/books/query.js";
+import type * as model_colaboradores_query from "../model/colaboradores/query.js";
 import type * as model_user_queries from "../model/user/queries.js";
 import type * as user from "../user.js";
 
@@ -26,8 +28,10 @@ declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   books: typeof books;
   http: typeof http;
+  "model/alunos/query": typeof model_alunos_query;
   "model/books/mutation": typeof model_books_mutation;
   "model/books/query": typeof model_books_query;
+  "model/colaboradores/query": typeof model_colaboradores_query;
   "model/user/queries": typeof model_user_queries;
   user: typeof user;
 }>;
