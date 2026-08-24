@@ -216,3 +216,28 @@ body {
 .animate-fade-in {
   animation: fade-in 0.6s ease-out forwards;
 }
+
+@keyframes toast {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -16px);
+  }
+  8% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  92% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -16px);
+  }
+}
+
+.animate-toast {
+  animation-name: toast;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+}
