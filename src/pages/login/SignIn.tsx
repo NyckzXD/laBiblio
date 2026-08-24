@@ -1,7 +1,5 @@
 import { useAuthActions } from "@convex-dev/auth/react";
-import { CheckCircle2 } from "lucide-react";
 import { useState } from "react";
-import { Alert, AlertDescription, AlertTitle } from "../../components/ui/alert";
 import { Button } from "../../components/ui/button";
 import {
   Card,
@@ -13,11 +11,13 @@ import {
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
 import { Separator } from "../../components/ui/separator";
+import { Notifications } from "@/services/notifications";
 
 export function SignIn() {
   const { signIn } = useAuthActions();
   const [step, setStep] = useState<"signUp" | "signIn">("signIn");
   const [accountCreated, setAccountCreated] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4">
@@ -34,13 +34,21 @@ export function SignIn() {
         </CardHeader>
         <CardContent>
           {accountCreated && (
-            <Alert className="mb-4">
-              <CheckCircle2 />
-              <AlertTitle>Conta criada com sucesso</AlertTitle>
-              <AlertDescription>
-                Agora entre com seu email e senha para continuar.
-              </AlertDescription>
-            </Alert>
+           <Notifications
+              title="Cadstrado"
+              description={"Cadastrado com sucesso"}
+              variant="default"
+              onClose={() => setError(null)}
+            />
+          )}
+
+          {error && (
+            <Notifications
+              title="Erro"
+              description={error}
+              variant="destructive"
+              onClose={() => setError(null)}
+            />
           )}
 
           <form
@@ -49,12 +57,27 @@ export function SignIn() {
               event.preventDefault();
               const formData = new FormData(event.currentTarget);
               const submittedStep = step;
-              void signIn("password", formData).then(() => {
-                if (submittedStep === "signUp") {
-                  setAccountCreated(true);
-                  setStep("signIn");
-                }
-              });
+              setError(null);
+              void signIn("password", formData)
+                .then(() => {
+                  if (submittedStep === "signUp") {
+                    setAccountCreated(true);
+                    setStep("signIn");
+                  }
+                })
+                .catch((err) => {
+                  console.log("erro aqui",err)
+                  const message = String(err?.message ?? "");
+                  if (message.includes("InvalidAccountId")) {
+                    setError("Email não cadastrado.");
+                  } else if (
+                    message.includes("InvalidSecret")
+                  ) {
+                    setError("Senha incorreta.");
+                  } else {
+                    setError("Não foi possível concluir. Tente novamente.");
+                  }
+                });
             }}
           >
             <div className="flex flex-col gap-1.5">
