@@ -1,7 +1,8 @@
 import type { ComponentType } from "react";
-import { Home, LibraryBig } from "lucide-react";
+import { Home, LibraryBig, Users } from "lucide-react";
 import { Dashboard } from "./pages/home/DashboardPage";
 import { BookPages } from "./pages/books/page/BookPages";
+import { AlunosPage } from "./pages/alunos/page/AlunosPage";
 
 export type RouteConfig = {
   path: string;
@@ -24,6 +25,13 @@ export const routes: RouteConfig[] = [
     title: "Books",
     icon: LibraryBig,
     component: BookPages,
+    showInMenu: true,
+  },
+  {
+    path: "/alunos",
+    title: "Alunos",
+    icon: Users,
+    component: AlunosPage,
     showInMenu: true,
   },
 ];

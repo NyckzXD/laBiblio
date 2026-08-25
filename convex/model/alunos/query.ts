@@ -12,3 +12,12 @@ export const currentAluno = query({
       .unique();
   },
 });
+
+export const list = query({
+  args: {},
+  handler: async (ctx) => {
+    const userId = await getAuthUserId(ctx);
+    if (!userId) return [];
+    return ctx.db.query("alunos").order("asc").collect();
+  },
+});

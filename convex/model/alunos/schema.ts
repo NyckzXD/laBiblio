@@ -2,7 +2,7 @@ import { defineTable } from "convex/server";
 import { v } from "convex/values";
 
 export const AlunosTable = defineTable({
-  userId: v.id("users"),
+  userId: v.optional(v.id("users")),
   nome: v.string(),
   email: v.string(),
   matricula: v.string(),
