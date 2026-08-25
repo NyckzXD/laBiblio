@@ -8,10 +8,13 @@
  * @module
  */
 
+import type * as alunos from "../alunos.js";
 import type * as auth from "../auth.js";
 import type * as books from "../books.js";
 import type * as http from "../http.js";
+import type * as model_alunos_actions from "../model/alunos/actions.js";
 import type * as model_alunos_mutation from "../model/alunos/mutation.js";
+import type * as model_alunos_passwordReset from "../model/alunos/passwordReset.js";
 import type * as model_alunos_query from "../model/alunos/query.js";
 import type * as model_books_mutation from "../model/books/mutation.js";
 import type * as model_books_query from "../model/books/query.js";
@@ -26,10 +29,13 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  alunos: typeof alunos;
   auth: typeof auth;
   books: typeof books;
   http: typeof http;
+  "model/alunos/actions": typeof model_alunos_actions;
   "model/alunos/mutation": typeof model_alunos_mutation;
+  "model/alunos/passwordReset": typeof model_alunos_passwordReset;
   "model/alunos/query": typeof model_alunos_query;
   "model/books/mutation": typeof model_books_mutation;
   "model/books/query": typeof model_books_query;

@@ -1,4 +1,4 @@
-import { BookMarked, LibraryBig } from "lucide-react";
+import { BookMarked } from "lucide-react";
 import type { ComponentType } from "react";
 import { BookCatalogoPage } from "./alunosPages/booksCatalogo/page/BookCatalogoPage";
 
