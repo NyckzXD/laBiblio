@@ -9,7 +9,7 @@ import { api } from "@convex/_generated/api";
 
 export function AlunosPage() {
   const [search, setSearch] = useState("");
-  const listAlunos = useQuery(api.model.alunos.query.list) || [];
+  const listAlunos = useQuery(api.alunos.list) || [];
 
   const filtered = useMemo(
     () =>

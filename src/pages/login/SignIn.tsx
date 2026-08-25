@@ -12,129 +12,162 @@ import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
 import { Separator } from "../../components/ui/separator";
 import { Notifications } from "@/services/notifications";
+import { ResetSenha } from "@/alunosPages/resetSenha";
 
 export function SignIn() {
   const { signIn } = useAuthActions();
   const [step, setStep] = useState<"signUp" | "signIn">("signIn");
   const [accountCreated, setAccountCreated] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [tela, setTela] = useState<"login" | "reset">("login");
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4">
       <Card className="w-full max-w-sm">
-        <CardHeader>
-          <CardTitle className="text-xl">
-            {step === "signIn" ? "Entrar" : "Criar conta"}
-          </CardTitle>
-          <CardDescription>
-            {step === "signIn"
-              ? "Acesse sua conta para continuar"
-              : "Preencha os dados para criar sua conta"}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          {accountCreated && (
-           <Notifications
-              title="Cadstrado"
-              description={"Cadastrado com sucesso"}
-              variant="default"
-              onClose={() => setError(null)}
-            />
-          )}
+        {tela === "reset" ? (
+          <>
+            <CardHeader>
+              <CardTitle className="text-xl">Redefinir senha</CardTitle>
+              <CardDescription>
+                Enviaremos um código para o seu email
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ResetSenha />
+              <button
+                type="button"
+                onClick={() => setTela("login")}
+                className="mt-6 w-full text-center text-sm font-medium text-foreground underline-offset-4 hover:underline"
+              >
+                Voltar para o login
+              </button>
+            </CardContent>
+          </>
+        ) : (
+          <>
+            <CardHeader>
+              <CardTitle className="text-xl">
+                {step === "signIn" ? "Entrar" : "Criar conta"}
+              </CardTitle>
+              <CardDescription>
+                {step === "signIn"
+                  ? "Acesse sua conta para continuar"
+                  : "Preencha os dados para criar sua conta"}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {accountCreated && (
+                <Notifications
+                  title="Cadastrado"
+                  description={"Cadastrado com sucesso"}
+                  variant="default"
+                  onClose={() => setAccountCreated(false)}
+                />
+              )}
 
-          {error && (
-            <Notifications
-              title="Erro"
-              description={error}
-              variant="destructive"
-              onClose={() => setError(null)}
-            />
-          )}
+              {error && (
+                <Notifications
+                  title="Erro"
+                  description={error}
+                  variant="destructive"
+                  onClose={() => setError(null)}
+                />
+              )}
 
-          <form
-            className="flex flex-col gap-4"
-            onSubmit={(event) => {
-              event.preventDefault();
-              const formData = new FormData(event.currentTarget);
-              const submittedStep = step;
-              setError(null);
-              void signIn("password", formData)
-                .then(() => {
-                  if (submittedStep === "signUp") {
-                    setAccountCreated(true);
-                    setStep("signIn");
-                  }
-                })
-                .catch((err) => {
-                  console.log("erro aqui",err)
-                  const message = String(err?.message ?? "");
-                  if (message.includes("InvalidAccountId")) {
-                    setError("Email não cadastrado.");
-                  } else if (
-                    message.includes("InvalidSecret")
-                  ) {
-                    setError("Senha incorreta.");
-                  } else {
-                    setError("Não foi possível concluir. Tente novamente.");
-                  }
-                });
-            }}
-          >
-            <div className="flex flex-col gap-1.5">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="voce@exemplo.com"
-                required
-              />
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <Label htmlFor="password">Senha</Label>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                placeholder="••••••••"
-                required
-              />
-            </div>
-            <input name="flow" type="hidden" value={step} />
-            <Button type="submit" className="mt-1 w-full">
-              {step === "signIn" ? "Entrar" : "Criar conta"}
-            </Button>
-          </form>
+              <form
+                className="flex flex-col gap-4"
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  const formData = new FormData(event.currentTarget);
+                  const submittedStep = step;
+                  setError(null);
+                  void signIn("password", formData)
+                    .then(() => {
+                      if (submittedStep === "signUp") {
+                        setAccountCreated(true);
+                        setStep("signIn");
+                      }
+                    })
+                    .catch((err) => {
+                      console.log("erro aqui", err);
+                      const message = String(err?.message ?? "");
+                      if (message.includes("InvalidAccountId")) {
+                        setError("Email não cadastrado.");
+                      } else if (message.includes("InvalidSecret")) {
+                        setError("Senha incorreta.");
+                      } else {
+                        setError("Não foi possível concluir. Tente novamente.");
+                      }
+                    });
+                }}
+              >
+                <div className="flex flex-col gap-1.5">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="voce@exemplo.com"
+                    required
+                  />
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <Label htmlFor="password">Senha</Label>
+                  <Input
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="••••••••"
+                    required
+                  />
+                </div>
+                <input name="flow" type="hidden" value={step} />
+                <Button type="submit" className="mt-1 w-full">
+                  {step === "signIn" ? "Entrar" : "Criar conta"}
+                </Button>
+              </form>
 
-          <div className="mt-4 flex items-center gap-3">
-            <Separator className="flex-1" />
-            <span className="text-xs text-muted-foreground">ou</span>
-            <Separator className="flex-1" />
-          </div>
+              {step === "signIn" && (
+                <button
+                  type="button"
+                  onClick={() => setTela("reset")}
+                  className="mt-3 w-full text-center text-sm font-medium text-muted-foreground underline-offset-4 hover:underline"
+                >
+                  Esqueci minha senha
+                </button>
+              )}
 
-          <Button
-            variant="outline"
-            className="mt-4 w-full"
-            onClick={() => void signIn("google")}
-          >
-            <GoogleIcon className="size-4" />
-            Entrar com Google
-          </Button>
+              <div className="mt-4 flex items-center gap-3">
+                <Separator className="flex-1" />
+                <span className="text-xs text-muted-foreground">ou</span>
+                <Separator className="flex-1" />
+              </div>
 
-          <p className="mt-6 text-center text-sm text-muted-foreground">
-            {step === "signIn" ? "Não tem uma conta?" : "Já tem uma conta?"}{" "}
-            <button
-              type="button"
-              className="font-medium text-foreground underline-offset-4 hover:underline"
-              onClick={() => {
-                setAccountCreated(false);
-                setStep(step === "signIn" ? "signUp" : "signIn");
-              }}
-            >
-              {step === "signIn" ? "Criar conta" : "Entrar"}
-            </button>
-          </p>
-        </CardContent>
+              <Button
+                variant="outline"
+                className="mt-4 w-full"
+                onClick={() => void signIn("google")}
+              >
+                <GoogleIcon className="size-4" />
+                Entrar com Google
+              </Button>
+
+              <p className="mt-6 text-center text-sm text-muted-foreground">
+                {step === "signIn" ? "Não tem uma conta?" : "Já tem uma conta?"}{" "}
+                <button
+                  type="button"
+                  className="font-medium text-foreground underline-offset-4 hover:underline"
+                  onClick={() => {
+                    setAccountCreated(false);
+                    setStep(step === "signIn" ? "signUp" : "signIn");
+                  }}
+                >
+                  {step === "signIn" ? "Criar conta" : "Entrar"}
+                </button>
+              </p>
+            </CardContent>
+          </>
+        )}
       </Card>
     </div>
   );

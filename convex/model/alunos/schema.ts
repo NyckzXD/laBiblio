@@ -12,4 +12,5 @@ export const AlunosTable = defineTable({
 })
   .index("by_userId", ["userId"])
   .index("by_matricula", ["matricula"])
-  .index("by_nome", ["nome"]);
+  .index("by_nome", ["nome"])
+  .index("by_email", ["email"]);

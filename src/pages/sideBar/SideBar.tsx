@@ -25,7 +25,6 @@ import { api } from "@convex/_generated/api";
 export function AppSidebar() {
   const { signOut } = useAuthActions();
   const user = useQuery(api.model.user.queries.currentUser);
-  console.log("🚀 ~ AppSidebar ~ user:", user)
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader className="flex flex-row items-center gap-2 px-2 py-3">
