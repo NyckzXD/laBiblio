@@ -1,19 +1,18 @@
 import { v } from "convex/values";
 import { internalAction } from "../../_generated/server";
 
-
 export const registerEmail = internalAction({
   args: {
     email: v.string(),
     nome: v.string(),
     matricula: v.string(),
   },
-  handler: async (ctx, args) => {
-    const res = await fetch("https://api.resend.com/emails", {
+  handler: async (_ctx, args) => {
+    await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-         "Content-Type": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         from: "LaBiblio <onboarding@wgprojects.site>",
