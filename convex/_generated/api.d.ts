@@ -11,6 +11,7 @@
 import type * as alunos from "../alunos.js";
 import type * as auth from "../auth.js";
 import type * as books from "../books.js";
+import type * as colaboradores from "../colaboradores.js";
 import type * as http from "../http.js";
 import type * as model_alunos_actions from "../model/alunos/actions.js";
 import type * as model_alunos_mutation from "../model/alunos/mutation.js";
@@ -33,6 +34,7 @@ declare const fullApi: ApiFromModules<{
   alunos: typeof alunos;
   auth: typeof auth;
   books: typeof books;
+  colaboradores: typeof colaboradores;
   http: typeof http;
   "model/alunos/actions": typeof model_alunos_actions;
   "model/alunos/mutation": typeof model_alunos_mutation;
