@@ -8,7 +8,7 @@ export const registerEmail = internalAction({
     matricula: v.string(),
   },
   handler: async (_ctx, args) => {
-    await fetch("https://api.resend.com/emails", {
+    const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         authorization: `Bearer ${process.env.RESEND_API_KEY}`,
@@ -67,5 +67,14 @@ export const registerEmail = internalAction({
 </html>`,
       }),
     });
+    if (!res.ok) {
+      const errorBody = await res.text();
+      console.error(
+        "Falha ao enviar e-mail via Resend:",
+        res.status,
+        errorBody,
+      );
+      throw new Error(`Resend API retornou ${res.status}`);
+    }
   },
 });
