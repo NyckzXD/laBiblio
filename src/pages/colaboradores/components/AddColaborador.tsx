@@ -35,8 +35,8 @@ export function AddColaborador({
   onOpenChange: externalOnOpenChange,
   onClose,
 }: AddColaboradorProps) {
-  const create = useMutation(api.model.colaboradores.mutation.registerColaborador);
-  const update = useMutation(api.model.colaboradores.mutation.updateColaborador);
+  const create = useMutation(api.colaboradores.registerColaborador);
+  const update = useMutation(api.colaboradores.updateColaborador);
 
   const [form, setForm] = useState(emptyForm);
   const [internalOpen, setInternalOpen] = useState(false);

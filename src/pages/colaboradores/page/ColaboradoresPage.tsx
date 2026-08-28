@@ -9,7 +9,7 @@ import { api } from "@convex/_generated/api";
 
 export function ColaboradoresPage() {
   const [search, setSearch] = useState("");
-  const listColaboradores = useQuery(api.model.colaboradores.query.list) || [];
+  const listColaboradores = useQuery(api.colaboradores.list) || [];
 
   const filtered = useMemo(
     () =>
