@@ -9,4 +9,5 @@ export const BooksTable = defineTable({
   available: v.boolean(),
 })
   .index("by_author", ["author"])
-  .index("by_title", ["title"]);
+  .index("by_title", ["title"])
+  .index("by_title_author", ["title", "author"]);
