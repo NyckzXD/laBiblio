@@ -13,7 +13,7 @@ interface BooksDetailsProps {
   onClose?: () => void;
 }
 
-export function BooksDetails({ Books, open, onOpenChange, onClose }: BooksDetailsProps) {
+export function BooksDetails({ Books, open, onOpenChange }: BooksDetailsProps) {
 
   return (
     <>
