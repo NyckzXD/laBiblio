@@ -4,7 +4,7 @@ import { useAuthActions } from "@convex-dev/auth/react";
 import { api } from "../convex/_generated/api";
 import { SignIn } from "./pages/login/SignIn";
 import { Dashboard } from "./pages/home/DashboardPage";
-import { AlunoApp } from "./pages/aluno/AlunoApp";
+import { AlunoApp } from "./alunosPages/aluno/AlunoApp";
 import { Button } from "./components/ui/button";
 
 function AreaLogada() {
