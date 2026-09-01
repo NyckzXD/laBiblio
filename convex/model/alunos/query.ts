@@ -1,5 +1,6 @@
 import { getAuthUserId } from "@convex-dev/auth/server";
 import { query } from "../../_generated/server";
+import { v } from "convex/values";
 
 export const currentAluno = query({
   args: {},
@@ -19,5 +20,12 @@ export const list = query({
     const userId = await getAuthUserId(ctx);
     if (!userId) return [];
     return ctx.db.query("alunos").order("asc").collect();
+  },
+});
+
+export const getById = query({
+  args: { id: v.id("alunos") },
+  handler: async (ctx, args) => {
+    return await ctx.db.get(args.id);
   },
 });

@@ -1,6 +1,7 @@
-import { BookMarked } from "lucide-react";
+import { BookMarked, LibraryBig } from "lucide-react";
 import type { ComponentType } from "react";
 import { BookCatalogoPage } from "./alunosPages/booksCatalogo/page/BookCatalogoPage";
+import { AluguelPages } from "./alunosPages/aluguelHistory/pages/AluguelPages";
 
 export type RouteAlunoConfig = {
   path: string;
@@ -18,11 +19,11 @@ export const alunoRoutes: RouteAlunoConfig[] = [
     component: BookCatalogoPage,
     showInMenu: true,
   },
-//   {
-//     path: "/aluno/historico",
-//     title: "Meus empréstimos",
-//     icon: LibraryBig,
-//     component: AlunoHistoricoPage,
-//     showInMenu: true,
-//   },
+  {
+    path: "/aluno/historico",
+    title: "Meus empréstimos",
+    icon: LibraryBig,
+    component: AluguelPages,
+    showInMenu: true,
+  },
 ];
